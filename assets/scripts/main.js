@@ -6,8 +6,12 @@ import './matter-collision-events.min.js'
 Matter.use(MatterWrap);
 Matter.use('matter-collision-events')
 let chooseTimer = setTimeout(0)
-const tvScreen = document.getElementById('screen')
+const tvScreen = document.getElementById('screen-on')
 const hoveredStrip = {elem: document.getElementsByClassName('hover'), state: true};
+let tvOff = setTimeout(turnOff, 0)
+function turnOff(){
+  tvScreen.parentElement.classList.add('off')
+}           
 var t,
   e = {},
   n =
@@ -23,7 +27,6 @@ var t,
   r = (Matter.Common, Matter.World),
   a = Matter.Bodies,
   b = Matter.Body,
-  cm = Matter.Composite,
   s = (Matter.Body, Matter.Events),
   d = Matter.Query,
   c = Matter.MouseConstraint,
@@ -131,10 +134,9 @@ function makeWorld() {
         {
           restitution: 0.6,
           friction: 0,
-          frictionAir: 0.005,
+          frictionAir: 0.05,
           frictionStatic: 0,
           density: 7.5,
-          chamfer: { radius: 24 },
           angle: 2 * Math.random() - 1,
           plugin: {
             wrap: {
@@ -198,16 +200,18 @@ function makeWorld() {
         d.point(m, { x: M, y: p }).length
           ? (T(),
             (t = d.point(m, { x: M, y: p })[0].id),
-            (document.getElementById(t).className += " hover"), //!adding hover class not sure
+            (document.getElementById(t).className += " hover"), //*adding hover class 
             (document.body.style.cursor = "pointer"))
           : T();
           const elem = hoveredStrip.elem[0]
-          if (elem && hoveredStrip.state){
-            console.log(elem.dataset.img)
+          if (elem && hoveredStrip.state && (elem.id !== tvScreen.parentNode.id)){
+            clearTimeout(tvOff);
             hoveredStrip.state = false;
             tvScreen.style.backgroundImage = `url(${elem.dataset.img})`
+            tvScreen.parentElement.classList.remove('off')
           } else if (!elem && !hoveredStrip.state){
             hoveredStrip.state = true
+            tvOff = setTimeout(turnOff, 100)
           }
     }),
     s.on(h, "mousedown", function (t) {
@@ -299,9 +303,10 @@ const refreshWorld = debounce(function () {
   makeWorld();
 console.dir(f)
 
-for (let i = 0; i<f.length-1; i++){
+for (let i = 0; i<f.length; i++){
+  if (!f[i].classList.contains('tv')){
   m[i].onCollide(glow.bind(f[i]))
-  m[i].onCollideActive(glow.bind(f[i]))
+  m[i].onCollideActive(glow.bind(f[i]))}
 }
 
 function glow(){
@@ -313,30 +318,10 @@ function noGlow(){
   this.classList.remove('show-glow')
 }
 
-// setInterval(()=>{
-//   const bodyHovered = document.querySelector('.strip.hover');
-//   if(bodyHovered){
-//       console.dir(m[bodyHovered.id-1])
-//       b.setAngle(m[bodyHovered.id-1], 0)
-//   }
-// }, 1000)
-
 window.addEventListener("resize", refreshWorld);
-console.dir(document.querySelector('main'))
-document.querySelector('main').addEventListener('click', test)
-document.querySelector('#debug').addEventListener('click', pepis)
 
-function test(){
-  const event = window.event;
-  console.dir(this)
-  console.dir(event.target) 
-}
-
-function pepis(){
-  console.dir(this)
-  console.dir(window.event) 
-}
-
+//* unsuccessful try to make resizing better. 
+// TODO this will have to save every objects rotation, then set to 0, scale correctly, set rotation back, hope nothing collides and explodes
 // console.log(m[1])
 // console.log(f[1])
 // function updateCanvas() {
