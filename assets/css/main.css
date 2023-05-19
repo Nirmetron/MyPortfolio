@@ -293,7 +293,7 @@ body.home {
   background: #966F33;
   z-index: 0;
   width: 45rem;
-  height: 30rem;
+  height: 25rem;
 }
 
 .screen {
@@ -301,14 +301,69 @@ body.home {
   position: absolute;
   display: block;
   background: #2e2e2e;
-
+  background-size: cover;
   width: 80%;
   height: 92%;
-
+  animation: car-image 15s linear;
   top: 4%;
   left: 3%;
 }
 
+@keyframes car-image {  
+  0% {
+    background-position: 42% 36%;
+    background-size: 200%;
+  }
+  
+  20% {
+    background-position: 35% 30%;
+    background-size: 200%;
+  }
+  
+  20.0001% { /* -- View 2 -- */
+    background-position: 90% 63%;
+    background-size: 400%;
+  }
+  
+  40% {
+    background-position: 100% 53%;
+    background-size: 350%;
+  }
+  
+  40.0001% { /* -- View 3 -- */
+    background-position: 30% 76%;
+    background-size: 300%;
+  }
+  
+  60% {
+    background-position: 10% 57%;
+    background-size: 220%;
+  }
+  
+  60.0001% { /* -- View 4 -- */
+    background-position: 20% 10%;
+    background-size: 300%;
+  }
+  
+  80% {
+    background-position: 30% 24%;
+    background-size: 300%;
+  }
+  
+  80.0001% { /* -- View 5 -- */
+    background-position: 100% 100%;
+    background-size: 120%;
+  }
+  
+  95% {
+    background-position: 20% 20%;
+    background-size: 120%;
+  }
+  100% {
+    background-position: 0% 0%;
+    background-size: 100%;
+  }
+}
 
 .screen-overlay {    
   background: linear-gradient(
@@ -442,11 +497,6 @@ body.home {
   animation: shutdown 0.4s linear;
   animation-fill-mode: forwards;
 }
-/* .tv.off > #screen-on{
-  animation: shutdown-opa 0.4s linear;
-  animation-fill-mode: forwards;
-} */
-
 
 @keyframes shutdown{
     0%

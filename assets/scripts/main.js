@@ -318,15 +318,10 @@ function noGlow(){
   this.classList.remove('show-glow')
 }
 
-// setInterval(()=>{
-//   const bodyHovered = document.querySelector('.strip.hover');
-//   if(bodyHovered){
-//       console.dir(m[bodyHovered.id-1])
-//       b.setAngle(m[bodyHovered.id-1], 0)
-//   }
-// }, 1000)
-
 window.addEventListener("resize", refreshWorld);
+
+//* unsuccessful try to make resizing better. 
+// TODO this will have to save every objects rotation, then set to 0, scale correctly, set rotation back, hope nothing collides and explodes
 // console.log(m[1])
 // console.log(f[1])
 // function updateCanvas() {
