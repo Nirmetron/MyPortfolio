@@ -26,7 +26,7 @@ var t,
   o = Matter.Runner,
   r = (Matter.Common, Matter.World),
   a = Matter.Bodies,
-  b = Matter.Body,
+  bd = Matter.Body,
   s = (Matter.Body, Matter.Events),
   d = Matter.Query,
   c = Matter.MouseConstraint,
@@ -197,7 +197,7 @@ function makeWorld() {
     s.on(h, "mousemove", function (t) {
       (M = t.mouse.absolute.x),
         (p = t.mouse.absolute.y),
-        d.point(m, { x: M, y: p }).length
+        d.point(m, { x: M, y: p }).length       //*events that happen when body is hovered
           ? (T(),
             (t = d.point(m, { x: M, y: p })[0].id),
             (document.getElementById(t).className += " hover"), //*adding hover class 
@@ -211,7 +211,7 @@ function makeWorld() {
             tvScreen.parentElement.classList.remove('off')
           } else if (!elem && !hoveredStrip.state){
             hoveredStrip.state = true
-            tvOff = setTimeout(turnOff, 100)
+            tvOff = setTimeout(turnOff, 300)
           }
     }),
     s.on(h, "mousedown", function (t) {
@@ -317,7 +317,7 @@ function glow(){
 function noGlow(){
   this.classList.remove('show-glow')
 }
-
+document.getElementById('btn-reset').addEventListener('click', refreshWorld)
 window.addEventListener("resize", refreshWorld);
 
 //* unsuccessful try to make resizing better. 

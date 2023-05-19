@@ -7,6 +7,7 @@ html,
 body,
 main {
   height: 100%;
+  overflow: hidden;
 }
 
 .matter-body {
@@ -42,7 +43,7 @@ main {
   animation: animate 20s linear infinite;
   opacity: 0;
   transition: opacity 2s;
-  filter: blur(6.5rem);
+  filter: blur(6rem);
 }
 /* * return the white background */
 .cover-rainbow {
@@ -284,6 +285,16 @@ body.home {
   border-radius: 16px;
 }
 
+#btn-reset {
+  position: fixed;
+  left: 2%;
+  bottom: 2%;
+  width: 5rem;
+  aspect-ratio: 1;
+  z-index: 10;
+  border-radius: 1rem;
+}
+
 /* * TV Setup */
 
 .tv {
@@ -293,7 +304,7 @@ body.home {
   background: #966F33;
   z-index: 0;
   width: 45rem;
-  height: 25rem;
+  height: 28rem;
 }
 
 .screen {
