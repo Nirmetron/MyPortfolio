@@ -134,7 +134,6 @@ function makeWorld() {
           frictionAir: 0.005,
           frictionStatic: 0,
           density: 7.5,
-          chamfer: { radius: 24 },
           angle: 2 * Math.random() - 1,
           plugin: {
             wrap: {
@@ -198,11 +197,11 @@ function makeWorld() {
         d.point(m, { x: M, y: p }).length
           ? (T(),
             (t = d.point(m, { x: M, y: p })[0].id),
-            (document.getElementById(t).className += " hover"), //!adding hover class not sure
+            (document.getElementById(t).className += " hover"), //*adding hover class 
             (document.body.style.cursor = "pointer"))
           : T();
           const elem = hoveredStrip.elem[0]
-          if (elem && hoveredStrip.state){
+          if (elem && hoveredStrip.state && (elem.id !== tvScreen.parentNode.id)){
             console.log(elem.dataset.img)
             hoveredStrip.state = false;
             tvScreen.style.backgroundImage = `url(${elem.dataset.img})`
@@ -302,9 +301,10 @@ const refreshWorld = debounce(function () {
   makeWorld();
 console.dir(f)
 
-for (let i = 0; i<f.length-1; i++){
+for (let i = 0; i<f.length; i++){
+  if (!f[i].classList.contains('tv')){
   m[i].onCollide(glow.bind(f[i]))
-  m[i].onCollideActive(glow.bind(f[i]))
+  m[i].onCollideActive(glow.bind(f[i]))}
 }
 
 function glow(){
