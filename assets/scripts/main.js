@@ -6,7 +6,7 @@ import './matter-collision-events.min.js'
 Matter.use(MatterWrap);
 Matter.use('matter-collision-events')
 let chooseTimer = setTimeout(0)
-const tvScreen = document.getElementById('screen')
+const tvScreen = document.getElementById('screen-on')
 const hoveredStrip = {elem: document.getElementsByClassName('hover'), state: true};
 var t,
   e = {},
@@ -206,8 +206,11 @@ function makeWorld() {
             console.log(elem.dataset.img)
             hoveredStrip.state = false;
             tvScreen.style.backgroundImage = `url(${elem.dataset.img})`
+            tvScreen.parentElement.classList.remove('off')
           } else if (!elem && !hoveredStrip.state){
             hoveredStrip.state = true
+            tvScreen.parentElement.classList.add('off')
+            console.log(tvScreen)
           }
     }),
     s.on(h, "mousedown", function (t) {

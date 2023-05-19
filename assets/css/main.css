@@ -19,7 +19,7 @@ main {
   user-select: none;
 }
 
-.matter-body::after {
+.matter-body:not(.tv)::after {
   content: "";
   position: absolute;
   top: -2px;
@@ -299,16 +299,8 @@ body.home {
   height: 30rem;
 }
 
-#screen {
+.screen {
   border-radius: 3px;
-  box-shadow: (
-    inset 0 0 20px 0 rgba(0, 0, 0, 0.05)
-    inset 0 0 100px 0 rgba(0, 0, 0, 0.56)
-    inset 0 -90px 100px 0 rgba(0, 0, 0, 0.23)
-    inset 0 90px 100px 0 rgba(255, 255, 255, 0.08)
-    0 0 0 1px rgba(0, 0, 0, 0.43)
-  );
-
   position: absolute;
   display: block;
   background: #2e2e2e;
@@ -443,4 +435,35 @@ body.home {
 
   top: -70%;
   left: -10%;
+}
+
+
+/* TV Shutdown animation */
+
+.tv.off > #screen-on{
+  background: #8f8875;
+  animation: shutdown 0.4s linear;
+  animation-fill-mode: forwards;
+}
+/* .tv.off > #screen-on{
+  animation: shutdown-opa 0.4s linear;
+  animation-fill-mode: forwards;
+} */
+
+
+@keyframes shutdown{
+    0%
+        {transform: scale3d(1, 1, 1);
+        opacity: 0}
+    20%
+       { transform: scale3d(1, 1.4, 1);
+        opacity: 0}
+
+    50%
+      {transform: scale3d(1, .005, 1);
+      opacity: 1}
+
+    100%
+      {transform: scale3d(0, 0, 1);
+      opacity: 0}
 }
