@@ -12,6 +12,7 @@ let tvOff = setTimeout(turnOff, 0)
 function turnOff(){
   tvScreen.parentElement.classList.add('off')
 }           
+//declaring all needed variables
 var t,
   e = {},
   n =
@@ -170,7 +171,22 @@ function makeWorld() {
       (f[g].id = t.id),
       m.push(t);
   }
-  r.add(n.world, m), (n.world.gravity.y = 0);
+  r.add(n.world, m), (n.world.gravity.y = 0);   
+  //*adding glow
+  for (let i = 0; i<f.length; i++){
+    if (!f[i].classList.contains('tv')){
+    m[i].onCollide(glow.bind(f[i]))
+    m[i].onCollideActive(glow.bind(f[i]))}
+  }
+  
+  function glow(){
+    this.classList.add('show-glow')
+    this.timeout = setTimeout(noGlow.bind(this), 600)
+  }
+  
+  function noGlow(){
+    this.classList.remove('show-glow')
+  }
   var M,
     p,
     b,
@@ -292,31 +308,13 @@ function debounce(n, i, o) {
       o && !r && n.apply(t, e);
   };
 }
-
-
-
 const refreshWorld = debounce(function () {
     location.reload();
   }, 500);
-
-
   makeWorld();
 console.dir(f)
 
-for (let i = 0; i<f.length; i++){
-  if (!f[i].classList.contains('tv')){
-  m[i].onCollide(glow.bind(f[i]))
-  m[i].onCollideActive(glow.bind(f[i]))}
-}
 
-function glow(){
-  this.classList.add('show-glow')
-  this.timeout = setTimeout(noGlow.bind(this), 600)
-}
-
-function noGlow(){
-  this.classList.remove('show-glow')
-}
 document.getElementById('btn-reset').addEventListener('click', refreshWorld)
 window.addEventListener("resize", refreshWorld);
 

@@ -322,57 +322,16 @@ body.home {
 
 @keyframes car-image {  
   0% {
-    background-position: 42% 36%;
-    background-size: 200%;
+    background-position: 0% 0%;
   }
-  
-  20% {
-    background-position: 35% 30%;
-    background-size: 200%;
+  3%{
+    background-position: 0% 1%;
   }
-  
-  20.0001% { /* -- View 2 -- */
-    background-position: 90% 63%;
-    background-size: 400%;
-  }
-  
-  40% {
-    background-position: 100% 53%;
-    background-size: 350%;
-  }
-  
-  40.0001% { /* -- View 3 -- */
-    background-position: 30% 76%;
-    background-size: 300%;
-  }
-  
-  60% {
-    background-position: 10% 57%;
-    background-size: 220%;
-  }
-  
-  60.0001% { /* -- View 4 -- */
-    background-position: 20% 10%;
-    background-size: 300%;
-  }
-  
-  80% {
-    background-position: 30% 24%;
-    background-size: 300%;
-  }
-  
-  80.0001% { /* -- View 5 -- */
-    background-position: 100% 100%;
-    background-size: 120%;
-  }
-  
-  95% {
-    background-position: 20% 20%;
-    background-size: 120%;
+  10% {
+    background-position: 0% 10%;
   }
   100% {
-    background-position: 0% 0%;
-    background-size: 100%;
+    background-position: 0% 100%;
   }
 }
 
