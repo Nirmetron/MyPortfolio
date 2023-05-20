@@ -12,6 +12,7 @@ let tvOff = setTimeout(turnOff, 0)
 function turnOff(){
   tvScreen.parentElement.classList.add('off')
 }           
+//declaring all needed variables
 var t,
   e = {},
   n =
@@ -26,7 +27,7 @@ var t,
   o = Matter.Runner,
   r = (Matter.Common, Matter.World),
   a = Matter.Bodies,
-  b = Matter.Body,
+  bd = Matter.Body,
   s = (Matter.Body, Matter.Events),
   d = Matter.Query,
   c = Matter.MouseConstraint,
@@ -170,7 +171,22 @@ function makeWorld() {
       (f[g].id = t.id),
       m.push(t);
   }
-  r.add(n.world, m), (n.world.gravity.y = 0);
+  r.add(n.world, m), (n.world.gravity.y = 0);   
+  //*adding glow
+  for (let i = 0; i<f.length; i++){
+    if (!f[i].classList.contains('tv')){
+    m[i].onCollide(glow.bind(f[i]))
+    m[i].onCollideActive(glow.bind(f[i]))}
+  }
+  
+  function glow(){
+    this.classList.add('show-glow')
+    this.timeout = setTimeout(noGlow.bind(this), 600)
+  }
+  
+  function noGlow(){
+    this.classList.remove('show-glow')
+  }
   var M,
     p,
     b,
@@ -197,7 +213,7 @@ function makeWorld() {
     s.on(h, "mousemove", function (t) {
       (M = t.mouse.absolute.x),
         (p = t.mouse.absolute.y),
-        d.point(m, { x: M, y: p }).length
+        d.point(m, { x: M, y: p }).length       //*events that happen when body is hovered
           ? (T(),
             (t = d.point(m, { x: M, y: p })[0].id),
             (document.getElementById(t).className += " hover"), //*adding hover class 
@@ -211,7 +227,7 @@ function makeWorld() {
             tvScreen.parentElement.classList.remove('off')
           } else if (!elem && !hoveredStrip.state){
             hoveredStrip.state = true
-            tvOff = setTimeout(turnOff, 100)
+            tvOff = setTimeout(turnOff, 300)
           }
     }),
     s.on(h, "mousedown", function (t) {
@@ -292,32 +308,14 @@ function debounce(n, i, o) {
       o && !r && n.apply(t, e);
   };
 }
-
-
-
 const refreshWorld = debounce(function () {
     location.reload();
   }, 500);
-
-
   makeWorld();
 console.dir(f)
 
-for (let i = 0; i<f.length; i++){
-  if (!f[i].classList.contains('tv')){
-  m[i].onCollide(glow.bind(f[i]))
-  m[i].onCollideActive(glow.bind(f[i]))}
-}
 
-function glow(){
-  this.classList.add('show-glow')
-  this.timeout = setTimeout(noGlow.bind(this), 600)
-}
-
-function noGlow(){
-  this.classList.remove('show-glow')
-}
-
+document.getElementById('btn-reset').addEventListener('click', refreshWorld)
 window.addEventListener("resize", refreshWorld);
 
 //* unsuccessful try to make resizing better. 
