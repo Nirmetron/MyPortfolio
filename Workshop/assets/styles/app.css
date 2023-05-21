@@ -194,7 +194,7 @@ button{
   background-color: rgb(234,234,238);
   text-align: center;
   width: 100%;
-  padding-bottom: 1.4rem;
+  padding-bottom: 3rem;
 }
 #social-links h1 {
   font-size: clamp(0.1rem, 2.5rem + 1vw, 3rem);
