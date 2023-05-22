@@ -8,10 +8,18 @@ Matter.use('matter-collision-events')
 let chooseTimer = setTimeout(0)
 const tvScreen = document.getElementById('screen-on')
 const hoveredStrip = {elem: document.getElementsByClassName('hover'), state: true};
+const preview = document.getElementById('webpage-preview')
+const tv = document.getElementById('vintage-tv');
+const darkBack = document.getElementById('dark-background')
 let tvOff = setTimeout(turnOff, 0)
 function turnOff(){
   tvScreen.parentElement.classList.add('off')
 }           
+function removePopUp() {
+  preview.classList.remove('active');
+  preview.classList.add('gone');
+  darkBack.classList.remove('active')
+}
 //declaring all needed variables
 var t,
   e = {},
@@ -115,12 +123,12 @@ function makeWorld() {
             plugin: {
               wrap: {
                 min: {
-                  x: 0,
-                  y: 0
+                  x: 5,
+                  y: 5
                 },
                 max: {
-                  x: window.innerWidth,
-                  y: window.innerHeight
+                  x: window.innerWidth-10,
+                  y: window.innerHeight-10
                 }
               }
             }
@@ -137,17 +145,17 @@ function makeWorld() {
           friction: 0,
           frictionAir: 0.05,
           frictionStatic: 0,
-          density: 7.5,
+          density: 1.5,
           angle: 2 * Math.random() - 1,
           plugin: {
             wrap: {
               min: {
-                x: 0,
-                y: 0
+                x: 10,
+                y: 10
               },
               max: {
-                x: window.innerWidth,
-                y: window.innerHeight
+                x: window.innerWidth-20,
+                y: window.innerHeight-20
               }
             }
           }
@@ -171,6 +179,10 @@ function makeWorld() {
       (f[g].id = t.id),
       m.push(t);
   }
+  const tvBody = m[tv.id-1];
+  preview.style.width = `${(tvBody.bounds.max.x - tvBody.bounds.min.x)*0.7}px`
+  preview.style.height = `${(tvBody.bounds.max.y - tvBody.bounds.min.y)*0.7}px`
+  preview.style.top = `${tvBody.position.y}px`
   r.add(n.world, m), (n.world.gravity.y = 0);   
   //*adding glow
   for (let i = 0; i<f.length; i++){
@@ -220,31 +232,44 @@ function makeWorld() {
             (document.body.style.cursor = "pointer"))
           : T();
           const elem = hoveredStrip.elem[0]
-          if (elem && hoveredStrip.state && (elem.id !== tvScreen.parentNode.id)){
+          if (elem && hoveredStrip.state && (elem.id !== tv.id)){
             clearTimeout(tvOff);
             hoveredStrip.state = false;
             tvScreen.style.backgroundImage = `url(${elem.dataset.img})`
-            tvScreen.parentElement.classList.remove('off')
+            tv.classList.remove('off')
           } else if (!elem && !hoveredStrip.state){
             hoveredStrip.state = true
-            tvOff = setTimeout(turnOff, 300)
+            tvOff = setTimeout(turnOff, 100)
           }
     }),
     s.on(h, "mousedown", function (t) {
-      (b = t.mouse.absolute.x), (v = t.mouse.absolute.y);
+      (b = t.mouse.absolute.x), (v = t.mouse.absolute.y),
+      (preview.style.left = `${tvBody.position.x}px`),
+      (preview.style.top = `${tvBody.position.y}px`),
+      (preview.style.rotate = `${tvBody.angle}rad`),
+      preview.classList.remove('gone');
     }),
     s.on(h, "mouseup", function (t) {
       var e, n;
+      let elem;
       (W = t.mouse.absolute.x),
         (B = t.mouse.absolute.y),
         b == W &&
           v == B &&
           (d.point(m, { x: W, y: B }).length &&
             ((e = d.point(m, { x: W, y: B })[0].id),
-            (n = document.getElementById(e).getAttribute("data-url"))),
+            (elem = document.getElementById(e)),
+            (n = elem.getAttribute("data-url"))),
           e) &&
-          null != n &&
-          (window.location.href = n),
+          ( //*open site preview and pass data
+          document.getElementById('preview-img').style.backgroundImage = `url(${elem.dataset.img})`,
+          document.getElementById('webpage-link').setAttribute('href', n),
+          preview.classList.add('active'),
+          darkBack.classList.add('active'),
+          tvOff = setTimeout(turnOff, 0)
+          )
+          console.dir(document.getElementById('webpage-link'))
+          // (window.location.href = n),
         T();
     }),
     window.requestAnimationFrame(function t() {
@@ -316,6 +341,8 @@ console.dir(f)
 
 
 document.getElementById('btn-reset').addEventListener('click', refreshWorld)
+preview.addEventListener('click', removePopUp)
+darkBack.addEventListener('click', removePopUp)
 window.addEventListener("resize", refreshWorld);
 
 //* unsuccessful try to make resizing better. 
