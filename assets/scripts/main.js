@@ -251,20 +251,24 @@ function makeWorld() {
     }),
     s.on(h, "mouseup", function (t) {
       var e, n;
+      let elem;
       (W = t.mouse.absolute.x),
         (B = t.mouse.absolute.y),
         b == W &&
           v == B &&
           (d.point(m, { x: W, y: B }).length &&
             ((e = d.point(m, { x: W, y: B })[0].id),
-            (n = document.getElementById(e).getAttribute("data-url"))),
+            (elem = document.getElementById(e)),
+            (n = elem.getAttribute("data-url"))),
           e) &&
           ( //*open site preview and pass data
-          document.getElementById('preview-img').style.backgroundImage = `url(${document.getElementById(e).dataset.img})`,
+          document.getElementById('preview-img').style.backgroundImage = `url(${elem.dataset.img})`,
+          document.getElementById('webpage-link').setAttribute('href', n),
           preview.classList.add('active'),
           darkBack.classList.add('active'),
           tvOff = setTimeout(turnOff, 0)
           )
+          console.dir(document.getElementById('webpage-link'))
           // (window.location.href = n),
         T();
     }),
