@@ -15,15 +15,6 @@ body {
     display: flex;
     flex-direction: column;
 }
-.service-info {
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.7s;
-}
-.service-active{
-  max-height: 3rem;
-  transition: max-height 0.7s;
-} 
 .open-buttons{
   display: none;
   background-image: url('assets/img/menu.png');
@@ -166,6 +157,15 @@ button{
   background: black;
 }
 
+.service-info {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 1s;
+}
+.service-active{
+  max-height: 5rem;
+  transition: max-height 1s;
+} 
 /* Extra info box */
 #more-info{
   width: 100%;
