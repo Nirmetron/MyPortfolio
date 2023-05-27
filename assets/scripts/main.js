@@ -2,9 +2,9 @@ import '../css/main.css'
 import './matter.min.js'
 import './matter-wrap.min.js'
 import './matter-collision-events.min.js'
+//! you should have the imports in production or it fucking breaks
 
-Matter.use(MatterWrap);
-Matter.use('matter-collision-events')
+Matter.use('matter-wrap', 'matter-collision-events');
 let chooseTimer = setTimeout(0)
 const tvScreen = document.getElementById('screen-on')
 const hoveredStrip = {elem: document.getElementsByClassName('hover'), state: true};
